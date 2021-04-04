@@ -15,9 +15,9 @@ let request = async () => {
     bam = JSON.parse(bam)
     
     // Can do the html shit here
-    console.log('test:'+ bam)
-    console.log(bam.length)
-    console.log(bam)
+    // console.log('test:'+ bam)
+    // console.log(bam.length)
+    // console.log(bam)
 
     
     for (let i=0; i<bam.length;i++) {

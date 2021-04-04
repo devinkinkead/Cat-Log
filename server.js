@@ -49,15 +49,15 @@ app.post('/upload', function(req, res) {
     catch {
         console.log('Unchecked')
     }
-    console.log("vomit: " + vomit)
-    console.log('Name: ' + req.body.petName)
-    console.log("Amount: " + req.body.amount)
+    // console.log("vomit: " + vomit)
+    // console.log('Name: ' + req.body.petName)
+    // console.log("Amount: " + req.body.amount)
 
     data['vomit'] = vomit
     data['name'] = req.body.petName
     data['amount'] = req.body.amount
     data['notes'] = req.body.notes
-     console.log(data)
+    //  console.log(data)
     let query = "INSERT INTO Cat.Log (Pet_Name, User, Date, Amount, Vomit, Notes) VALUES(" + "'" + data['name'] + "'" +"," + "'" + "dkinkead" + "'" + "," + "now()" + "," + "'" 
     + data['amount'] + "'" + "," + "'" + data['vomit'] + "'" + "," + "'" + data['notes'] + "'" + ");" 
     sql.dbQuery(query, loginData)
@@ -68,9 +68,9 @@ app.post('/upload', function(req, res) {
 app.get('/petData', function(req, res){
     let query = "SELECT Pet from Cat.Pets WHERE Owner = 'dkinkead'"
     let data = sql.dbQuery(query, loginData)
-    console.log('test: '+ data)
+    // console.log('test: '+ data)
     data.then( (value) => {
-        console.log('yo ' + JSON.stringify(value))
+        // console.log('yo ' + JSON.stringify(value))
         return res.json(JSON.stringify(value))   
     }
     )
@@ -122,9 +122,9 @@ app.get('/petData', function(req, res){
 //       res.redirect('/index.html')
 //   })
 
-  app.listen(8000, function(err){ 
+  app.listen(3000, function(err){ 
     if (err) console.log(err); 
-    console.log("Server listening on PORT", 8000); 
+    console.log("Server listening on PORT", 3000); 
 });  
 
 
