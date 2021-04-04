@@ -49,7 +49,7 @@ exports.dbQuery = function dbQuery(databaseQuery, creds) {
                 throw error;
             }
             try {
-                console.log(result);
+                // console.log(result);
 
                 data(result);
 
