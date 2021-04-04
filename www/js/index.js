@@ -10,29 +10,28 @@ let request = async () => {
     
     )
 
-    
-    var bam = await test
+    var bam = []
+    bam = await test
+    bam = JSON.parse(bam)
     
     // Can do the html shit here
+    console.log('test:'+ bam)
+    console.log(bam.length)
     console.log(bam)
-    var select = document.getElementById('petName')
-    var opt = document.createElement('option')
-    opt.value = bam[0]['Pet']
-    opt.innerHTML = bam[0]['Pet']
-    select.appendChild(opt)
 
+    
+    for (let i=0; i<bam.length;i++) {
+        var select = document.getElementById('petName')
+        var opt = document.createElement('option')
+        opt.value = bam[i]['Pet']
+        opt.innerHTML = bam[i]['Pet']
+        select.appendChild(opt)
+    }
  
-    // var opt = document.createElement('option');
-    // opt.value = i;
-    // opt.innerHTML = i;
-    // select.appendChild(opt);
-    
-        
-    
+   
 
 
 }
 
-var response = request()
 
-console.log(response)
+request()

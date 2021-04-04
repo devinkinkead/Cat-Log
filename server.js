@@ -71,8 +71,11 @@ app.get('/petData', function(req, res){
     console.log('test: '+ data)
     data.then( (value) => {
         console.log('yo ' + JSON.stringify(value))
-        res.end(JSON.parse(value))
-    })
+        return res.json(JSON.stringify(value))   
+    }
+    )
+
+    
     // res.json(); //also tried to do it through .send, but there data only on window in browser
 });
 
