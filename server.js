@@ -30,7 +30,53 @@ app.post('/login.html', function(req,res) {
 
 sql.dbQuery('SELECT * FROM Cat.Log', loginData )
 
-// app.post('/upload', function(req, res) {
+
+
+
+app.post('/upload', function(req, res) {
+    var vomit = 0
+    var name = ""
+    var amount = 0
+
+    var data = {}
+    try {
+        vomit = req.body.vomit
+        if (vomit == undefined) {
+            vomit = 0
+        }
+        
+    }
+    catch {
+        console.log('Unchecked')
+    }
+    console.log("vomit: " + vomit)
+    console.log('Name: ' + req.body.petName)
+    console.log("Amount: " + req.body.amount)
+
+    data['vomit'] = vomit
+    data['name'] = req.body.petName
+    data['amount'] = req.body.amount
+    data['notes'] = req.body.notes
+     console.log(data)
+    let query = "INSERT INTO Cat.Log (Pet_Name, User, Date, Amount, Vomit, Notes) VALUES(" + "'" + data['name'] + "'" +"," + "'" + "dkinkead" + "'" + "," + "now()" + "," + "'" 
+    + data['amount'] + "'" + "," + "'" + data['vomit'] + "'" + "," + "'" + data['notes'] + "'" + ");" 
+    sql.dbQuery(query, loginData)
+    res.send("Submitted")    
+});
+
+
+app.get('/petData', function(req, res){
+    let query = "SELECT Pet from Cat.Pets WHERE Owner = 'dkinkead'"
+    let data = sql.dbQuery(query, loginData)
+    console.log('test: '+ data)
+    data.then( (value) => {
+        console.log('yo ' + JSON.stringify(value))
+        res.end(JSON.parse(value))
+    })
+    // res.json(); //also tried to do it through .send, but there data only on window in browser
+});
+
+
 //     // var cookie = req.headers.cookie
 //     var cookie = get_cookies(req)['EID']
 //     // var cookie = cookie[0].split('=')
@@ -79,12 +125,4 @@ sql.dbQuery('SELECT * FROM Cat.Log', loginData )
 });  
 
 
-// var get_cookies = function(request) {
-//     var cookies = {};
-//     request.headers && request.headers.cookie.split(';').forEach(function(cookie) {
-//       var parts = cookie.match(/(.*?)=(.*)$/)
-//       cookies[ parts[1].trim() ] = (parts[2] || '').trim();
-//     });
-//     return cookies;
-//   };
 

@@ -1,1 +1,81 @@
-<h1>Hello World</h1>
+
+
+<html lang="en">
+    <head>
+      <link rel="stylesheet" href="./css/index.css" />
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <script src="js/index.js"></script>
+    </head>
+
+
+    <body>
+    
+      <div id="formId" class="center row">
+        <form ref='uploadForm' 
+            id='uploadForm' 
+            action='/upload' 
+            method='post' 
+            encType="multipart/form-data">
+            <div class="row">
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="petName">Choose a Pet:</label>
+
+                    <select name="petName" id="petName" required>
+                    <option value=""></option>
+                    </select>
+                </div>
+                
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="amount">How Many Cups?</label>
+            <select name="amount" required>
+                <option>0</option>
+                <option>0.25</option>
+                <option>0.5</option>
+                <option>0.75</option>
+                <option>1</option>
+                <option>1.25</option>
+                <option>1.5</option>
+            </select>
+
+                </div>
+
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="vomit">Vomit?</label>
+                    <input name="vomit" id=vomitBox type="checkbox" value="1">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-03 col-md-03 col-sm-03">&nbsp;</div>
+                <div class="col-lg-06 col-md-06 col-sm-06">
+                    <label for="notes">Notes:</label>
+                    <textarea maxlength="500" name="notes" id="notes" onkeyup="this.value = this.value.replace(/[']/g, '')"></textarea>
+                </div>
+                <div class="col-lg-03 col-md-03 col-sm-03">&nbsp;</div>
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <input type="submit">
+                </div>
+            </div>
+            
+        </form>
+    </div>
+
+
+</body>
+
+</html>
