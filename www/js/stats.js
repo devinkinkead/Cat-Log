@@ -30,7 +30,7 @@ let request = async () => {
         bam[i]['Date'] = t
     } 
     
-    var fedCount = 0, dailyAmount = 0, weekVomit=0
+    var fedCount = 0, dailyAmount = 0, weekVomit=0, lastFeeding="", lastVomit=""
     for (let i=0; i<bam.length; i++) {
         let date = new Date(bam[i]['Date'])
         let currentDate = new Date()
@@ -38,6 +38,14 @@ let request = async () => {
             if (bam[i]['Amount'] > 0) {
                 fedCount += 1
                 dailyAmount += bam[i]['Amount']
+            }
+
+            if (bam[i]['Amount'] > 0 ) {
+                lastFeeding = new Date(bam[i]['Date'])
+
+            }
+            if (bam[i]['Vomit'] == 1) {
+                lastVomit= new Date(bam[i]['Date'])
             }
             
         }
@@ -65,7 +73,10 @@ let request = async () => {
     var feedingDiv = document.getElementById('todayFeeding')
     var feedingMsg = document.createElement('p')
     feedingMsg.innerHTML = "<ul> <li>" + petName + " has been fed " + fedCount + " times today. </li>" + "<li>" + petName + " has been fed " + dailyAmount + " Cups of food today." +  "</li><li>" + petName + " has puked " + weekVomit + " times this week" + 
-    "</li></ul>"  
+    "</li> <li>" + "Last Feeding recorded on " + lastFeeding.toLocaleDateString() + " " + lastFeeding.toLocaleTimeString() + "</li>" + 
+    "<li>" + "Last Vomit recorded on " + lastVomit.toLocaleDateString() + " " + lastVomit.toLocaleTimeString() + "</li>" +"</ul>"  
+    
+    
     feedingDiv.appendChild(feedingMsg)
 
 
@@ -85,8 +96,12 @@ let request = async () => {
         if (date.getTime() >= weekBefore && note != "") {
             date = date.toLocaleDateString() + " "+ date.toLocaleTimeString()
             notesMsg.innerHTML += "<li>" + date + ": " + note + "</li>"   
-        } 
+        }
+        
     }
+
+
+
     notesMsg.innerHTML += "</ul>"
     feedingDiv.appendChild(notesMsg)
 
