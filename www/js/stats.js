@@ -28,16 +28,18 @@ let request = async () => {
     
     var fedCount = 0, dailyAmount = 0, weekVomit=0
     for (let i=0; i<bam.length; i++) {
-        var date = new Date(bam[i]['Date']).getDate()
-        var currentDate = new Date().getDate()
-        if (date == currentDate  ) {
+        let date = new Date(bam[i]['Date'])
+        let currentDate = new Date()
+        if (date.getDate() == currentDate.getDate()  ) {
             if (bam[i]['Amount'] > 0) {
                 fedCount += 1
                 dailyAmount += bam[i]['Amount']
             }
             
         }
-        if (date >= currentDate-7) {
+        let weekBefore = currentDate.getTime() - (7 * 24 * 60 * 60 * 1000)
+        
+        if (date.getTime() >= weekBefore) {
             if (bam[i]['Vomit'] == 1) {
                 weekVomit += 1
             }
@@ -58,14 +60,36 @@ let request = async () => {
     
     var feedingDiv = document.getElementById('todayFeeding')
     var feedingMsg = document.createElement('p')
-    feedingMsg.innerHTML = "<ul> <li>" + petName + " has been fed " + fedCount + " times today." + "<li>" + petName + " has been fed " + dailyAmount + " Cups of food today." +  "<li>" + petName + " has puked " + weekVomit + " times this week" + 
-    ""  
+    feedingMsg.innerHTML = "<ul> <li>" + petName + " has been fed " + fedCount + " times today. </li>" + "<li>" + petName + " has been fed " + dailyAmount + " Cups of food today." +  "</li><li>" + petName + " has puked " + weekVomit + " times this week" + 
+    "</li></ul>"  
     feedingDiv.appendChild(feedingMsg)
-    
-   
 
+
+    var notesHeading = document.createElement('h4')
+    notesHeading.innerHTML = "This week's Notes: "
+    feedingDiv.append(notesHeading)
+    
+    var notesMsg = document.createElement('p')
+    
+    notesMsg.innerHTML = "<ul>"
+    for (let i=0; i<bam.length;i++) {
+        let date = new Date(bam[i]['Date'])
+        let currentDate = new Date()
+        let weekBefore = currentDate.getTime() - (7 * 24 * 60 * 60 * 1000)
+
+        let note = bam[i]['Notes']
+        if (date.getTime() >= weekBefore && note != "") {
+            date = date.toLocaleDateString() + " "+ date.toLocaleTimeString()
+            notesMsg.innerHTML += "<li>" + date + ": " + note + "</li>"   
+        } 
+    }
+    notesMsg.innerHTML += "</ul>"
+    feedingDiv.appendChild(notesMsg)
 
 }
 
 
 request()
+
+
+

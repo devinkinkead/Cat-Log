@@ -61,7 +61,7 @@ app.post('/upload', function(req, res) {
     let query = "INSERT INTO Cat.Log (Pet_Name, User, Date, Amount, Vomit, Notes) VALUES(" + "'" + data['name'] + "'" +"," + "'" + "dkinkead" + "'" + "," + "now()" + "," + "'" 
     + data['amount'] + "'" + "," + "'" + data['vomit'] + "'" + "," + "'" + data['notes'] + "'" + ");" 
     sql.dbQuery(query, loginData)
-    res.send("Submitted")    
+    res.redirect('/index.html')
 });
 
 
