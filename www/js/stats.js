@@ -23,9 +23,9 @@ let request = async () => {
         t = new Date(bam[i]['Date'])
         
         // Milleseconds conversion
-        // t = t.getTime() - (offset * 60  * 1000)
-        // t =  new Date(t)
-        // console.log(t)
+        t = t.getTime() - ((offset * 60  * 1000) / 2)
+        t =  new Date(t)
+        console.log(t)
     
         bam[i]['Date'] = t
     } 
