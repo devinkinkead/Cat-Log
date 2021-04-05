@@ -16,7 +16,7 @@ let request = async () => {
     // console.log('test:'+ bam)
     // console.log(bam.length)
     offset = new Date().getTimezoneOffset()
-    console.log(offset)
+    // console.log(offset)
     
     var petName = bam[0]['Pet_Name']
     for (let i=0; i<bam.length;i++) {
