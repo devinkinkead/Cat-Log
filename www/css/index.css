@@ -1,3 +1,5 @@
+
+
 @media only screen and (max-width: 500px) {
     .col-sm-00  {display: 		   none; } /* note */
     .col-sm-01  {width: 		  8.33%; }
@@ -12,6 +14,10 @@
     .col-sm-10  {width: 		 83.33%; }
     .col-sm-11  {width: 		 91.66%; }
     .col-sm-12  {width: 		100.00%; }
+    #notes {
+        width: 90vw;
+        height: 20vh;
+    }
 
 }
 
@@ -31,6 +37,10 @@
     .col-md-10  {width: 		 83.33%; }
     .col-md-11  {width: 		 91.66%; }
     .col-md-12  {width: 		100.00%; }
+    #notes {
+        width: 60vw;
+        height: 20vh;
+    }
 
 }
 
@@ -49,7 +59,10 @@
     .col-lg-10  {width: 		 83.33%; }
     .col-lg-11  {width: 		 91.66%; }
     .col-lg-12  {width: 		100.00%; }
-    
+    #notes {
+        width: 60vw;
+        height: 20vh;
+    }
 }
 
 
@@ -59,10 +72,7 @@
     height: 20px;
 }
  
-#notes {
-    width: 30vw;
-    height: 20vh;
-}
+
 
 .center {
     display: flex;
