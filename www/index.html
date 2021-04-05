@@ -11,7 +11,11 @@
 
 
     <body>
-    
+        <nav class="center">
+            <button> <a href='./index.html'>Home</a></button>
+            <button> <a href='./stats.html'> See Stats!</a> </button>
+        </nav>
+        <h1 class="center">Feeding Form</h1>
       <div id="formId" class="center row">
         <form ref='uploadForm' 
             id='uploadForm' 
@@ -19,7 +23,7 @@
             method='post' 
             encType="multipart/form-data">
             <div class="row">
-
+        
 
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <label for="petName">Choose a Pet:</label>
@@ -57,23 +61,25 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-lg-03 col-md-03 col-sm-03">&nbsp;</div>
-                <div class="col-lg-06 col-md-06 col-sm-06">
+                <div class="col-lg-02 col-md-03 col-sm-03">&nbsp;</div>
+                <div class="col-lg-08 col-md-06 col-sm-06">
                     <label for="notes">Notes:</label>
                     <textarea maxlength="500" name="notes" id="notes" onkeyup="this.value = this.value.replace(/[']/g, '')"></textarea>
                 </div>
-                <div class="col-lg-03 col-md-03 col-sm-03">&nbsp;</div>
+                <div class="col-lg-02 col-md-03 col-sm-03">&nbsp;</div>
 
             </div>
             <br>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                    <input type="submit">
+                    <input type="submit" id="submit">
                 </div>
             </div>
             
         </form>
     </div>
+
+
 
 
 </body>

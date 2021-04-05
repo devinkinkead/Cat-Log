@@ -80,6 +80,20 @@ app.get('/petData', function(req, res){
 });
 
 
+app.get('/Stats', function(req, res) {
+    let query = "SELECT Date, Pet_Name, Notes, Amount, Vomit from Cat.Log WHERE User = 'dkinkead' AND pet_Name='Honda'"
+    let data = sql.dbQuery(query, loginData)
+    // console.log('test: '+ data)
+    data.then( (value) => {
+        // console.log('yo ' + JSON.stringify(value))
+        return res.json(JSON.stringify(value))   
+    }
+    )
+    
+    
+})
+
+
 //     // var cookie = req.headers.cookie
 //     var cookie = get_cookies(req)['EID']
 //     // var cookie = cookie[0].split('=')

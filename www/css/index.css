@@ -49,6 +49,7 @@
     .col-lg-10  {width: 		 83.33%; }
     .col-lg-11  {width: 		 91.66%; }
     .col-lg-12  {width: 		100.00%; }
+    
 }
 
 
@@ -59,7 +60,7 @@
 }
  
 #notes {
-    width: 90vw;
+    width: 30vw;
     height: 20vh;
 }
 
@@ -72,6 +73,20 @@
 
 
   body {
-      background-color: rgb(80, 75, 75);
+      background-color: black;
       color: white;
   }
+
+#submit {
+    padding: 10px 30px;
+}
+nav button {
+    padding: 10px 30px;
+    background-color: white;
+    margin-bottom: 5vh;
+}
+
+nav button a {
+    color: black;
+}
+
