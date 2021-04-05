@@ -21,11 +21,11 @@ let request = async () => {
     var petName = bam[0]['Pet_Name']
     for (let i=0; i<bam.length;i++) {
         t = new Date(bam[i]['Date'])
-        console.log('Old Date: ' + t)
-        // Milleseconds conversion
-        t = t.getTime() - (offset * 60  * 1000)
-        t =  new Date(t)
-        console.log("New Date: " + t)
+        // console.log('Old Date: ' + t)
+        // // Milleseconds conversion
+        // t = t.getTime() - (offset * 60  * 1000)
+        // t =  new Date(t)
+        // console.log("New Date: " + t)
     
         bam[i]['Date'] = t
     } 
