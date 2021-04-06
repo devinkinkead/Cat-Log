@@ -71,10 +71,10 @@ let request = async () => {
     // }
     
     var feedingDiv = document.getElementById('todayFeeding')
-    var feedingMsg = document.createElement('p')
-    feedingMsg.innerHTML = "<ul> <li>" + petName + " has been fed " + fedCount + " times today. </li>" + "<li>" + petName + " has been fed " + dailyAmount + " Cups of food today." +  "</li><li>" + petName + " has puked " + weekVomit + " times this week" + 
+    var feedingMsg = document.createElement('ul')
+    feedingMsg.innerHTML = "<li>" + petName + " has been fed " + fedCount + " times today. </li>" + "<li>" + petName + " has been fed " + dailyAmount + " Cups of food today." +  "</li><li>" + petName + " has puked " + weekVomit + " times this week" + 
     "</li> <li>" + "Last Feeding recorded on " + lastFeeding.toLocaleDateString() + " " + lastFeeding.toLocaleTimeString() + "</li>" + 
-    "<li>" + "Last Vomit recorded on " + lastVomit.toLocaleDateString() + " " + lastVomit.toLocaleTimeString() + "</li>" +"</ul>"  
+    "<li>" + "Last Vomit recorded on " + lastVomit.toLocaleDateString() + " " + lastVomit.toLocaleTimeString() + "</li>"   
     
     
     feedingDiv.appendChild(feedingMsg)
@@ -84,25 +84,28 @@ let request = async () => {
     notesHeading.innerHTML = "This week's Notes: "
     feedingDiv.append(notesHeading)
     
-    var notesMsg = document.createElement('p')
+    var notesMsg = document.createElement('ul')
     
-    notesMsg.innerHTML = "<ul>"
+    notesMsg.innerHTML = ""
+    
     for (let i=0; i<bam.length;i++) {
         let date = new Date(bam[i]['Date'])
         let currentDate = new Date()
         let weekBefore = currentDate.getTime() - (7 * 24 * 60 * 60 * 1000)
 
         let note = bam[i]['Notes']
+        if (i == 0) {
+            
+        }
         if (date.getTime() >= weekBefore && note != "") {
             date = date.toLocaleDateString() + " "+ date.toLocaleTimeString()
             notesMsg.innerHTML += "<li>" + date + ": " + note + "</li>"   
         }
-        
+        if (i == bam.length-1) {
+        }
     }
 
-
-
-    notesMsg.innerHTML += "</ul>"
+    console.log(notesMsg.innerHTML)
     feedingDiv.appendChild(notesMsg)
 
 }
