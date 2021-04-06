@@ -20,7 +20,7 @@ let request = async () => {
         t = new Date(bam[i]['Date'])
         bam[i]['Date'] = t
     } 
-    console.log(bam)
+    // console.log(bam)
     var fedCount = 0, dailyAmount = 0, weekVomit=0, lastFeeding, lastVomit
     for (let i=0; i<bam.length; i++) {
         let date = new Date(bam[i]['Date'])
