@@ -105,7 +105,7 @@ let request = async () => {
         }
     }
 
-    console.log(notesMsg.innerHTML)
+    // console.log(notesMsg.innerHTML)
     feedingDiv.appendChild(notesMsg)
 
 }
