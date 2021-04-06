@@ -11,22 +11,13 @@ let request = async () => {
    var  bam = []
     bam = await test
     bam = JSON.parse(bam)
-    
-    // Can do the html shit here
-    // console.log('test:'+ bam)
-    // console.log(bam.length)
-    offset = new Date().getTimezoneOffset()
-    // console.log(offset)
-    
-    var petName = bam[0]['Pet_Name']
+    if (bam.length == undefined) {
+        window.alert('Data could not be found. Try again later.')
+    }
+    else {
+        var petName = bam[0]['Pet_Name']
     for (let i=0; i<bam.length;i++) {
         t = new Date(bam[i]['Date'])
-        // console.log('Old Date: ' + t)
-        // // Milleseconds conversion
-        // t = t.getTime() - (offset * 60  * 1000)
-        // t =  new Date(t)
-        // console.log("New Date: " + t)
-    
         bam[i]['Date'] = t
     } 
     
@@ -107,6 +98,11 @@ let request = async () => {
 
     // console.log(notesMsg.innerHTML)
     feedingDiv.appendChild(notesMsg)
+    }
+    
+   
+    
+    
 
 }
 

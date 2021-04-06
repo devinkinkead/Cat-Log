@@ -71,8 +71,10 @@ app.get('/petData', function(req, res){
     // console.log('test: '+ data)
     data.then( (value) => {
         // console.log('yo ' + JSON.stringify(value))
+
         return res.json(JSON.stringify(value))   
-    }
+    },
+    
     )
 
     

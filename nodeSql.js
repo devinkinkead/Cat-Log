@@ -46,7 +46,7 @@ exports.dbQuery = function dbQuery(databaseQuery, creds) {
         db.query(databaseQuery, function (error, result) { // change db->connection for your code
             if (error) {
                 console.log(error);
-                throw error;
+                data({});
             }
             try {
                 // console.log(result);
@@ -57,7 +57,6 @@ exports.dbQuery = function dbQuery(databaseQuery, creds) {
             } catch (error) {
                 data({});
                 
-                throw error;
             }
 
         });
