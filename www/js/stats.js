@@ -30,7 +30,7 @@ let request = async () => {
         bam[i]['Date'] = t
     } 
     
-    var fedCount = 0, dailyAmount = 0, weekVomit=0, lastFeeding="", lastVomit=""
+    var fedCount = 0, dailyAmount = 0, weekVomit=0, lastFeeding= new Date(), lastVomit= new Date()
     for (let i=0; i<bam.length; i++) {
         let date = new Date(bam[i]['Date'])
         let currentDate = new Date()
