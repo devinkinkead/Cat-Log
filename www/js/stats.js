@@ -31,14 +31,15 @@ let request = async () => {
                 dailyAmount += bam[i]['Amount']
             }
 
-            if (bam[i]['Amount'] > 0 ) {
-                lastFeeding = new Date(bam[i]['Date'])
-
-            }
-            if (bam[i]['Vomit'] == 1) {
-                lastVomit= new Date(bam[i]['Date'])
-            }
             
+            
+        }
+        if (bam[i]['Amount'] > 0 ) {
+            lastFeeding = new Date(bam[i]['Date'])
+
+        }
+        if (bam[i]['Vomit'] == 1) {
+            lastVomit= new Date(bam[i]['Date'])
         }
         let weekBefore = currentDate.getTime() - (7 * 24 * 60 * 60 * 1000)
         
