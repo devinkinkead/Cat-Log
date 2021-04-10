@@ -37,7 +37,7 @@ let request = async () => {
 
 
 function bodyFunction() {
-    display_clock()
+    display_ct()
     request()
 }
 
