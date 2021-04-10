@@ -11,6 +11,7 @@ let request = async () => {
    var  bam = []
     bam = await test
     bam = JSON.parse(bam)
+    console.log(bam)
     if (bam.length == undefined) {
         window.alert('Data could not be found. Try again later.')
     }
