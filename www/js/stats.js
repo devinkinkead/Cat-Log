@@ -1,3 +1,31 @@
+
+let getPets = async () => {
+    const petRequest = fetch('/petNames')
+    .then (
+        function(value) {
+            var data = value.json()
+            return data
+        }
+    )
+    var petList = []
+    var pets = {}
+    pets = await petRequest
+    pets = JSON.parse(pets)
+    // console.log(pets)
+
+
+    
+    for (let i=0;i<pets.length;i++) {
+        petList.push(pets[i]['Pet_Name'])
+    }
+    
+
+    console.log(petList)
+}
+
+
+
+
 let request = async () => {
     const test = fetch('/stats')
     .then (
@@ -11,9 +39,17 @@ let request = async () => {
    var  bam = []
     bam = await test
     bam = JSON.parse(bam)
-    console.log(bam)
-    if (bam.length == undefined) {
-        window.alert('Data could not be found. Try again later.')
+    // console.log(bam)
+    var pet = ""
+    var pet = getCookie('PName')
+    // console.log(pet)
+    if (pet == "") {
+        // console.log('No Pet selected')
+    }
+    
+    else if (bam.length == undefined || (bam.length == 0) ) {
+        window.alert('Data could not be found for: ' + pet + '. Please Try again later.')
+        clearCookie('PName')
     }
     else {
         var petName = bam[0]['Pet_Name']
@@ -110,6 +146,6 @@ let request = async () => {
 
 
 request()
-
+getPets()
 
 

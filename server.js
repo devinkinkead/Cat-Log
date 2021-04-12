@@ -83,7 +83,18 @@ app.get('/petData', function(req, res){
 
 
 app.get('/Stats', function(req, res) {
-    let query = "SELECT Date, Pet_Name, Notes, Amount, Vomit from Cat.Log WHERE User = 'dkinkead' AND pet_Name='Honda'"
+
+    // Get the petName from cookie
+    let pet = ''
+    try {
+        pet = get_cookies(req)['PName']
+
+    }
+    catch (TypeError) {
+        pet = ''
+    }
+    console.log(pet)
+    let query = "SELECT Date, Pet_Name, Notes, Amount, Vomit from Cat.Log WHERE User = 'dkinkead' AND pet_Name="+ "'"+ pet + "';" 
     let data = sql.dbQuery(query, loginData)
     // console.log('test: '+ data)
     data.then( (value) => {
@@ -94,6 +105,35 @@ app.get('/Stats', function(req, res) {
     
     
 })
+
+
+app.get('/petNames', function(req, res) {
+    
+    
+    let user = "dkinkead"
+    let query = "SELECT DISTINCT Pet_Name from Cat.Log WHERE User = '" + user + "';"
+    let data = sql.dbQuery(query, loginData)
+    // console.log('test: '+ data)
+    data.then( (value) => {
+        // console.log('yo ' + JSON.stringify(value))
+       
+        
+        return res.json(JSON.stringify(value))
+           
+    }
+    )
+    
+    
+})
+
+app.post('/petUpload', function(req, res) {
+    let pet = req.body.petSelect
+    console.log(pet)
+    res.cookie('PName', pet)
+    res.redirect('/stats.html')
+
+});
+
 
 
 //     // var cookie = req.headers.cookie
@@ -143,5 +183,21 @@ app.get('/Stats', function(req, res) {
     console.log("Server listening on PORT", 3000); 
 });  
 
+
+var get_cookies = function(request) {
+    var cookies = {};
+    try {
+        request.headers && request.headers.cookie.split(';').forEach(function(cookie) {
+            var parts = cookie.match(/(.*?)=(.*)$/)
+            cookies[ parts[1].trim() ] = (parts[2] || '').trim();
+          });
+          return cookies;
+    }
+    catch (TypeError) {
+        console.log('No Pet Selected')
+        return {}
+    }
+    
+  };
 
 
