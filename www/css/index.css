@@ -91,6 +91,12 @@
 #submit {
     padding: 10px 30px;
 }
+
+#nameSubmit, #petSelect {
+    padding: 10px 10px;
+    margin: 10px
+}
+
 nav button {
     padding: 10px 30px;
     background-color: white;
