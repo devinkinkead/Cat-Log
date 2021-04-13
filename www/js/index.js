@@ -1,7 +1,7 @@
 
 var dataOutput = {}
 let request = async () => {
-    const test = fetch('/petData')
+    const test = fetch('/petNames')
     .then (
         function(value) {
             data = value.json()

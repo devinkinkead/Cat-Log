@@ -13,14 +13,66 @@ let getPets = async () => {
     pets = JSON.parse(pets)
     // console.log(pets)
 
+    
 
     
     for (let i=0;i<pets.length;i++) {
-        petList.push(pets[i]['Pet_Name'])
+        petList.push(pets[i]['Pet'])
     }
     
+    
 
-    console.log(petList)
+    // console.log(petList)
+
+    petSelector = document.getElementById('petSelect')
+    
+    let option = document.createElement('option')
+    option.value = ""
+    option.innerHTML = ""
+    option.id = "None"
+    petSelector.appendChild(option)
+    
+ 
+
+    
+ 
+    // petSelector.selected = document.getElementById(getCookie('PName'))
+
+    
+    // Insert pets here
+    
+
+
+    for (let i=0; i<petList.length;i++) {
+        let option = document.createElement('option')
+        option.value = petList[i]
+        option.innerHTML = petList[i]
+        option.id = petList[i]
+        petSelector.appendChild(option)
+    }
+
+       // Trying to select option that = the cookie (selected pet)
+       try {
+        
+        // getCookie('PName')
+        children = petSelector.children
+        // console.log(test[0])
+        
+        for (let i=0; i<children.length;i++) {
+            child = children[i]
+            // console.log(children[i])
+            if (getCookie('PName') == child.id) {
+                child.selected = true
+            }
+        }
+
+
+        }
+    catch (TypeError) {
+        
+        // console.log('Not found')
+    }
+
 }
 
 
@@ -57,8 +109,10 @@ let request = async () => {
         t = new Date(bam[i]['Date'])
         bam[i]['Date'] = t
     } 
+
+
     // console.log(bam)
-    var fedCount = 0, dailyAmount = 0, weekVomit=0, lastFeeding, lastVomit
+    var fedCount = 0, dailyAmount = 0, weekVomit=0, lastFeeding=null, lastVomit=null
     for (let i=0; i<bam.length; i++) {
         let date = new Date(bam[i]['Date'])
         let currentDate = new Date()
@@ -100,10 +154,28 @@ let request = async () => {
     // }
     
     var feedingDiv = document.getElementById('todayFeeding')
+    let statTitle = document.createElement('h4')
+    statTitle.innerHTML = "Today's Stats"
+    feedingDiv.appendChild(statTitle)
     var feedingMsg = document.createElement('ul')
+    
+    let lastVomitDate, lastFeedingDate
+    if (lastFeeding == null) {
+        lastFeedingDate = "N/A"
+    }
+    else {
+        lastFeedingDate = lastFeeding.toLocaleDateString() + " " + lastFeeding.toLocaleTimeString()
+    }
+    if (lastVomit == null) {
+        lastVomitDate = "N/A"
+    }
+    else {
+        lastVomitDate = lastVomit.toLocaleDateString() + " " + lastVomit.toLocaleTimeString()
+    }
+
     feedingMsg.innerHTML = "<li>" + petName + " has been fed " + fedCount + " times today. </li>" + "<li>" + petName + " has been fed " + dailyAmount + " Cups of food today." +  "</li><li>" + petName + " has puked " + weekVomit + " times this week" + 
-    "</li> <li>" + "Last Feeding recorded on " + lastFeeding.toLocaleDateString() + " " + lastFeeding.toLocaleTimeString() + "</li>" + 
-    "<li>" + "Last Vomit recorded on " + lastVomit.toLocaleDateString() + " " + lastVomit.toLocaleTimeString() + "</li>"   
+    "</li> <li>" + "Last Feeding recorded on: " + lastFeedingDate + "</li>" + 
+    "<li>" + "Last Vomit recorded on: " + lastVomitDate + "</li>"   
     
     
     feedingDiv.appendChild(feedingMsg)
