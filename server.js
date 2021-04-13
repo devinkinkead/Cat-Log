@@ -16,7 +16,11 @@ var loginData = {
     user: Dboptions.storageConfig.user,
     password: Dboptions.storageConfig.password,
     database: Dboptions.storageConfig.database,
+    ssl:  {
+        ca: Dboptions.storageConfig.cert
+    }
 }
+
 
 app.use(fileUpload());
 
