@@ -16,7 +16,11 @@ var loginData = {
     user: Dboptions.storageConfig.user,
     password: Dboptions.storageConfig.password,
     database: Dboptions.storageConfig.database,
+    ssl:  {
+        ca: Dboptions.storageConfig.cert
+    }
 }
+
 
 app.use(fileUpload());
 
@@ -47,7 +51,7 @@ app.post('/upload', function(req, res) {
         
     }
     catch {
-        console.log('Unchecked')
+        // console.log('Unchecked')
     }
     // console.log("vomit: " + vomit)
     // console.log('Name: ' + req.body.petName)
@@ -65,25 +69,19 @@ app.post('/upload', function(req, res) {
 });
 
 
-app.get('/petData', function(req, res){
-    let query = "SELECT Pet from Cat.Pets WHERE Owner = 'dkinkead'"
-    let data = sql.dbQuery(query, loginData)
-    // console.log('test: '+ data)
-    data.then( (value) => {
-        // console.log('yo ' + JSON.stringify(value))
-
-        return res.json(JSON.stringify(value))   
-    },
-    
-    )
-
-    
-    // res.json(); //also tried to do it through .send, but there data only on window in browser
-});
-
-
 app.get('/Stats', function(req, res) {
-    let query = "SELECT Date, Pet_Name, Notes, Amount, Vomit from Cat.Log WHERE User = 'dkinkead' AND pet_Name='Honda'"
+
+    // Get the petName from cookie
+    let pet = ''
+    try {
+        pet = get_cookies(req)['PName']
+
+    }
+    catch (TypeError) {
+        pet = ''
+    }
+    // console.log(pet)
+    let query = "SELECT Date, Pet_Name, Notes, Amount, Vomit from Cat.Log WHERE User = 'dkinkead' AND pet_Name="+ "'"+ pet + "';" 
     let data = sql.dbQuery(query, loginData)
     // console.log('test: '+ data)
     data.then( (value) => {
@@ -94,6 +92,35 @@ app.get('/Stats', function(req, res) {
     
     
 })
+
+
+app.get('/petNames', function(req, res) {
+    
+    
+    let user = "dkinkead"
+    let query = "SELECT Pet from Cat.Pets WHERE Owner = '" + user + "';"
+    let data = sql.dbQuery(query, loginData)
+    // console.log('test: '+ data)
+    data.then( (value) => {
+        // console.log('yo ' + JSON.stringify(value))
+       
+        
+        return res.json(JSON.stringify(value))
+           
+    }
+    )
+    
+    
+})
+
+app.post('/petUpload', function(req, res) {
+    let pet = req.body.petSelect
+    // console.log(pet)
+    res.cookie('PName', pet)
+    res.redirect('/stats.html')
+
+});
+
 
 
 //     // var cookie = req.headers.cookie
@@ -143,5 +170,21 @@ app.get('/Stats', function(req, res) {
     console.log("Server listening on PORT", 3000); 
 });  
 
+
+var get_cookies = function(request) {
+    var cookies = {};
+    try {
+        request.headers && request.headers.cookie.split(';').forEach(function(cookie) {
+            var parts = cookie.match(/(.*?)=(.*)$/)
+            cookies[ parts[1].trim() ] = (parts[2] || '').trim();
+          });
+          return cookies;
+    }
+    catch (TypeError) {
+        // console.log('No Pet Selected')
+        return {}
+    }
+    
+  };
 
 
