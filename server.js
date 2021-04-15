@@ -89,7 +89,7 @@ app.get('/WeightHistory', async function(req, res) {
         pet = ''
     }
 
-    let query = "SELECT Date, Weight FROM Weight_Log WHERE Pet_ID=" + pet
+    let query = "SELECT Date, Weight FROM Weight_Log WHERE Pet_ID=" + pet + " ORDER BY Date ASC"
     let data = await sql.dbQuery(query,loginData)
     return res.json(JSON.stringify(data))
 
@@ -111,7 +111,7 @@ app.get('/Stats', async function(req, res) {
 
     // console.log(pet)
     let query = "SELECT Date, Pets.Pet AS Pet_Name, Notes, Amount, Vomit from Pets INNER JOIN Log ON Pets.ID = Log.Pet_ID " + 
-    "WHERE Pets.ID="+ "'"+ pet + "';" 
+    "WHERE Pets.ID="+ "'"+ pet + " ORDER BY Date ASC" + " ';" 
     let data = sql.dbQuery(query, loginData)
     // console.log('test: '+ data)
     data.then( (value) => {
