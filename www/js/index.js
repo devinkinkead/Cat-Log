@@ -22,7 +22,7 @@ let request = async () => {
         for (let i=0; i<bam.length;i++) {
             var select = document.getElementById('petName')
             var opt = document.createElement('option')
-            opt.value = bam[i]['Pet']
+            opt.value = bam[i]['ID']
             opt.innerHTML = bam[i]['Pet']
             select.appendChild(opt)
         }

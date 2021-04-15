@@ -17,7 +17,7 @@ let getPets = async () => {
 
     
     for (let i=0;i<pets.length;i++) {
-        petList.push(pets[i]['Pet'])
+        petList.push(pets[i])
     }
     
     
@@ -42,12 +42,12 @@ let getPets = async () => {
     // Insert pets here
     
 
-
+    console.log(petList)
     for (let i=0; i<petList.length;i++) {
         let option = document.createElement('option')
-        option.value = petList[i]
-        option.innerHTML = petList[i]
-        option.id = petList[i]
+        option.value = petList[i]['ID']
+        option.innerHTML = petList[i]['Pet']
+        option.id = petList[i]['Pet']
         petSelector.appendChild(option)
     }
 
@@ -61,7 +61,7 @@ let getPets = async () => {
         for (let i=0; i<children.length;i++) {
             child = children[i]
             // console.log(children[i])
-            if (getCookie('PName') == child.id) {
+            if (getCookie('Pet_ID') == child.value) {
                 child.selected = true
             }
         }
@@ -92,8 +92,9 @@ let request = async () => {
     bam = await test
     bam = JSON.parse(bam)
     // console.log(bam)
-    var pet = ""
-    var pet = getCookie('PName')
+    
+    
+    var pet = getCookie('Pet_ID')
     // console.log(pet)
     if (pet == "") {
         // console.log('No Pet selected')

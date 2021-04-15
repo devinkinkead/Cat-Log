@@ -34,7 +34,7 @@ app.post('/login.html', function(req,res) {
     res.redirect('/')
 })
 
-sql.dbQuery('SELECT * FROM Cat.Log', loginData )
+// sql.dbQuery('SELECT * FROM Cat.Log', loginData )
 
 
 
@@ -64,29 +64,32 @@ app.post('/upload', function(req, res) {
     data['amount'] = req.body.amount
     data['notes'] = req.body.notes
     //  console.log(data)
-    let query = "INSERT INTO Cat.Log (Pet_Name, User, Date, Amount, Vomit, Notes) VALUES(" + "'" + data['name'] + "'" +"," + "'" + "dkinkead" + "'" + "," + "now()" + "," + "'" 
+    let query = "INSERT INTO Cat.Log (Pet_ID, User_ID, Date, Amount, Vomit, Notes) VALUES(" + "'" + data['name'] + "'" +"," + "'" + "dkinkead" + "'" + "," + "now()" + "," + "'" 
     + data['amount'] + "'" + "," + "'" + data['vomit'] + "'" + "," + "'" + data['notes'] + "'" + ");" 
     sql.dbQuery(query, loginData)
     res.redirect('/index.html')
 });
 
 
-app.get('/Stats', function(req, res) {
+app.get('/Stats', async function(req, res) {
 
     // Get the petName from cookie
     let pet = ''
     try {
-        pet = get_cookies(req)['PName']
+        pet = get_cookies(req)['Pet_ID']
 
     }
     catch (TypeError) {
         pet = ''
     }
+
     // console.log(pet)
-    let query = "SELECT Date, Pet_Name, Notes, Amount, Vomit from Cat.Log WHERE User = 'dkinkead' AND pet_Name="+ "'"+ pet + "';" 
+    let query = "SELECT Date, Pets.Pet AS Pet_Name, Notes, Amount, Vomit from Pets INNER JOIN Log ON Pets.ID = Log.Pet_ID " + 
+    "WHERE Pets.ID="+ "'"+ pet + "';" 
     let data = sql.dbQuery(query, loginData)
     // console.log('test: '+ data)
     data.then( (value) => {
+        // value['Pet_Name'] = petData['Pet_Name']
         // console.log('yo ' + JSON.stringify(value))
         return res.json(JSON.stringify(value))   
     }
@@ -99,8 +102,8 @@ app.get('/Stats', function(req, res) {
 app.get('/petNames', function(req, res) {
     
     
-    let user = "dkinkead"
-    let query = "SELECT Pet from Cat.Pets WHERE Owner = '" + user + "';"
+    let user = "1"
+    let query = "SELECT Pet, ID from Cat.Pets WHERE Owner = '" + user + "';"
     let data = sql.dbQuery(query, loginData)
     // console.log('test: '+ data)
     data.then( (value) => {
@@ -115,10 +118,11 @@ app.get('/petNames', function(req, res) {
     
 })
 
-app.post('/petUpload', function(req, res) {
+app.post('/petUpload', async function(req, res) {
     let pet = req.body.petSelect
     // console.log(pet)
-    res.cookie('PName', pet)
+    res.cookie('Pet_ID', pet)
+    
     res.redirect('/stats.html')
 
 });
