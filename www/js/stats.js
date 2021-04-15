@@ -9,7 +9,7 @@ let getWeightData = async function() {
         // console.log('No Pet selected')
     }
     
-    else if (pet.length == undefined || (pet.length == 0) ) {
+    else if (data.length == undefined || (data.length == 0) ) {
         window.alert('Weight Data could not be found for Pet. Please Try again later.')
         // clearCookie('Pet_ID')
     }
