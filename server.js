@@ -27,7 +27,9 @@ app.use(fileUpload());
 var options = {
     index: 'index.html'
 }
-app.use(express.static(path.join(__dirname, 'www',), options))
+var publicDirectory = path.join(__dirname, 'www/')
+
+app.use(express.static(publicDirectory, options))
 app.post('/login.html', function(req,res) {
     res.redirect('/')
 })
