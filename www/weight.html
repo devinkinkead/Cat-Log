@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/index.js"></script>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight!</title>
+</head>
+<body>
+    <body onload="bodyFunction()">
+        <nav class="center">
+            <button> <a href='./index.html'>Feeding</a></button>
+            <button> <a href='./weight.html'>Weight</a> </button>
+
+            <button> <a href='./stats.html'>See Stats!</a> </button>
+        </nav>
+        <h1 class="center">Weight Form</h1>
+        <div class="center row" id="clock"></div>
+      <div id="formId" class="center row">
+        <form ref='uploadForm' 
+            id='uploadForm' 
+            action='/WeightUpload' 
+            method='post' 
+            encType="multipart/form-data">
+            <div class="row">
+        
+                <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="petName">Choose a Pet:</label>
+
+                    <select name="petName" id="petName" required>
+                    <option value=""></option>
+                    </select>
+                </div>
+            </div>
+                
+                <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="weight">Record Weight (In Pounds)</label>
+                    <input type="number" name="weight" id="weightInput" step="0.001"></input>
+                </div>
+                </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <input type="submit" id="submit">
+                </div>
+            </div>
+            
+        </form>
+    </div>
+
+        <!-- Weight Stats Here -->
+        <div class="row" id="weightStats">
+            
+
+        </div>
+
+
+</body>
+</html>

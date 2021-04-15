@@ -70,6 +70,32 @@ app.post('/upload', function(req, res) {
     res.redirect('/index.html')
 });
 
+app.post('/WeightUpload', async function(req, res) {
+    let pet = req.body.petName
+    let weight = req.body.weight
+
+    let query = "INSERT INTO Weight_Log(Date, Pet_ID, Weight) VALUES(Now()," + pet + "," + weight + ");"
+    sql.dbQuery(query,loginData)
+    res.redirect('/weight.html')
+});
+
+app.get('/WeightHistory', async function(req, res) {
+    let pet = ''
+    try {
+        pet = get_cookies(req)['Pet_ID']
+
+    }
+    catch (TypeError) {
+        pet = ''
+    }
+
+    let query = "SELECT Date, Weight FROM Weight_Log WHERE Pet_ID=" + pet
+    let data = await sql.dbQuery(query,loginData)
+    return res.json(JSON.stringify(data))
+
+});
+
+
 
 app.get('/Stats', async function(req, res) {
 
