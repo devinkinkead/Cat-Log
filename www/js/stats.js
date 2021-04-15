@@ -11,7 +11,7 @@ let getWeightData = async function() {
     
     else if (pet.length == undefined || (pet.length == 0) ) {
         window.alert('Weight Data could not be found for Pet. Please Try again later.')
-        clearCookie('Pet_ID')
+        // clearCookie('Pet_ID')
     }
 
     else {
@@ -146,8 +146,8 @@ let request = async () => {
     }
     
     else if (bam.length == undefined || (bam.length == 0) ) {
-        window.alert('Data could not be found for Pet. Please Try again later.')
-        clearCookie('Pet_ID')
+        window.alert('Feeding Data could not be found for Pet. Please Try again later.')
+        // clearCookie('Pet_ID')
     }
     else {
         var petName = bam[0]['Pet_Name']
