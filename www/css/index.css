@@ -114,3 +114,18 @@ ul {
 #clock {
     margin-bottom: 4vh;
 }
+
+.row {
+    margin-bottom: 1vh;
+}
+
+#notesArea, #weightArea {
+    width: 90vw;
+    height: 30vh;
+    font-size: large;
+ 
+} 
+#notesArea:disabled, #weightArea:disabled {
+    background-color: black;
+    color: white;
+}

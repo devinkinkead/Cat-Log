@@ -1,4 +1,49 @@
 
+let getWeightData = async function() {
+    const weightData = await fetch('/WeightHistory')
+    let data = await weightData.json()
+    data = JSON.parse(data)
+    var pet = getCookie('Pet_ID')
+    // console.log(pet)
+    if (pet == "") {
+        // console.log('No Pet selected')
+    }
+    
+    else if (pet.length == undefined || (pet.length == 0) ) {
+        window.alert('Weight Data could not be found for Pet. Please Try again later.')
+        clearCookie('Pet_ID')
+    }
+
+    else {
+        for (let i=0; i<data.length;i++) {
+            t = new Date(data[i]['Date'])
+            data[i]['Date'] = t
+        }
+        console.log(data)
+        
+        let weightStatsDiv = document.getElementById('weightStats')
+        let title = document.createElement('h4')
+        title.innerHTML = "Weight History:"
+        weightStatsDiv.appendChild(title)
+
+        let weightArea = document.createElement('textarea')
+        weightArea.id = "weightArea"
+        weightArea.disabled = true
+        for (let i=0;i<data.length;i++) {
+            let date = data[i]['Date'].toLocaleDateString() + " " + data[i]['Date'].toLocaleTimeString()
+            weightArea.value += "\u2022 " + date + ": " + data[i]['Weight'] + " lb" + "\r\n" + "\r\n"
+            
+        }
+
+        weightStatsDiv.appendChild(weightArea)
+    }
+
+
+
+
+
+}
+
 let getPets = async () => {
     const petRequest = fetch('/petNames')
     .then (
@@ -101,8 +146,8 @@ let request = async () => {
     }
     
     else if (bam.length == undefined || (bam.length == 0) ) {
-        window.alert('Data could not be found for: ' + pet + '. Please Try again later.')
-        clearCookie('PName')
+        window.alert('Data could not be found for Pet. Please Try again later.')
+        clearCookie('Pet_ID')
     }
     else {
         var petName = bam[0]['Pet_Name']
@@ -156,7 +201,7 @@ let request = async () => {
     
     var feedingDiv = document.getElementById('todayFeeding')
     let statTitle = document.createElement('h4')
-    statTitle.innerHTML = "Today's Stats"
+    statTitle.innerHTML = "Today's Stats:"
     feedingDiv.appendChild(statTitle)
     var feedingMsg = document.createElement('ul')
     
@@ -183,12 +228,13 @@ let request = async () => {
 
 
     var notesHeading = document.createElement('h4')
-    notesHeading.innerHTML = "This week's Notes: "
+    notesHeading.innerHTML = "This Week's Notes: "
     feedingDiv.append(notesHeading)
     
-    var notesMsg = document.createElement('ul')
+    var textA = document.createElement('textarea')
+    textA.id = "notesArea"
+    textA.disabled = true
     
-    notesMsg.innerHTML = ""
     
     for (let i=0; i<bam.length;i++) {
         let date = new Date(bam[i]['Date'])
@@ -201,14 +247,15 @@ let request = async () => {
         }
         if (date.getTime() >= weekBefore && note != "") {
             date = date.toLocaleDateString() + " "+ date.toLocaleTimeString()
-            notesMsg.innerHTML += "<li>" + date + ": " + note + "</li>"   
+            textA.value +=  "\u2022 " + date + ": " + note + "\r\n" + "\r\n"
         }
         if (i == bam.length-1) {
         }
     }
 
     // console.log(notesMsg.innerHTML)
-    feedingDiv.appendChild(notesMsg)
+    
+    feedingDiv.appendChild(textA)
     }
     
    
@@ -220,5 +267,5 @@ let request = async () => {
 
 request()
 getPets()
-
+getWeightData()
 
