@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./css/login.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="./js/login.js"></script>
+
+    
+    <title>PROGRAM</title>
+  </head>
+  <body>
+    <h1>Welcome to PROGRAM</h1>
+    <h2></h2>
+
+    <!-- these two divs have the buttons in them for logging in or requesting an account -->
+    <div class="row">
+      <div class="col-lg-04 col-md-04 col-sm-04">&nbsp;</div>
+      <div class="fill col-lg-04 col-md-04 col-sm-04">
+        <button
+          onclick="document.getElementById('loginDiv').style.display='block'"
+          style="width: auto"
+        >
+          Login
+        </button>
+      </div>
+      <div class="col-lg-04 col-md-04 col-sm-04">&nbsp;</div>
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-lg-04 col-md-04 col-sm-04">&nbsp;</div>
+      <div class="fill col-lg-04 col-md-04 col-sm-04">
+        <button onclick="document.getElementById('createAccount').style.display='block'" style="width: auto">
+          Create Account
+        </button>
+      </div>
+      <div class="col-lg-04 col-md-04 col-sm-04">&nbsp;</div>
+    </div> -->
+
+    <!-- this one is for logging in -->
+    <div id="loginDiv" class="modal">
+      <form
+        class="modal-content animate"
+        action="/login"
+        method="post"
+        id="loginForm"
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="closeLogin()"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+          <!-- <img src="./Images/tie.png" alt="Avatar" class="avatar" /> -->
+        </div>
+
+        <div class="container">
+          <label for="username"><b>Username</b></label>
+          <input
+            type="text"
+            placeholder="Enter Email"
+            name="username"
+            required
+          ></input>
+
+          <label for="pwd"><b>Password</b></label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="pwd"
+            required></input>
+
+            <input type="submit" id="submit"></input>
+            <!-- <label>
+            <input type="checkbox" checked="checked" name="remember" /> Remember
+            me
+          </label> -->
+        </div>
+
+        <div class="container" style="background-color: #f1f1f1">
+          <button
+            type="button"
+            onclick="closeLogin()"
+            class="cancelbtn"
+          >
+            Cancel
+          </button>
+          <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
+        </div>
+      </form>
+    </div>
+
+    <!-- this one is for requesting an account -->
+    <div id="createAccount" class="modal">
+      <form
+        class="modal-content animate"
+        action="/createAccount"
+        method="post"
+        id="signup"
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="closeCreate()"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+        </div>
+
+        <div class="container">
+          <label for="eid"><b>Username</b></label>
+          <input
+            type="text"
+            placeholder="Enter Username"
+            name="user"
+            id="createUser"
+            maxlength="45"
+            required
+          />
+
+          <label for="pwd"><b>Password</b></label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="pwd"
+            id="createPassword"
+            maxlength="45"
+            required
+          />
+
+          <label for="pwd"><b>Confirm Password</b></label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="pwdConfirm"
+            id="confirmPassword"
+            maxlength="45"
+            required
+          />
+
+          <input type="submit"></input>
+        </div>
+
+        <div class="container" style="background-color: #f1f1f1">
+          <button
+            type="button"
+            onclick="closeCreate()"
+            class="cancelbtn"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // Get the modal
+      
+      var modal = document.getElementById("loginDiv");
+      var modal2 = document.getElementById("createAccount");
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          closeLogin()
+        }
+        else if (event.target == modal2) {
+          closeCreate()
+        }
+      };
+
+      
+
+  
+    </script>
+  
+
+ 
+
+</body>
+</html>
+
+</html>

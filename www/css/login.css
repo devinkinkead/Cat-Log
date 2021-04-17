@@ -1,0 +1,228 @@
+
+
+
+body 
+{
+    background-image: url('../Images/background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 
+{
+    text-align: center;
+    size: 10vw;
+    font-family: 'Comfortaa', cursive;;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  button, input[type=submit] {
+    background-color: #000000;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: larger;
+    border-radius: 5px;
+  }
+  
+  button:hover, input[type=submit]:hover {
+    opacity: 0.8;
+  }
+  
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+  }
+  
+  /* Center the image and position the close button */
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+  
+  img.avatar {
+    width: auto;
+    border-radius: 50%;
+  }
+  
+  .container {
+    padding: 16px;
+  }
+  
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fffefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 70%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+  }
+  
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.5s;
+    animation: animatezoom 0.5s
+  }
+  
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+  }
+    
+  @keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+  }
+
+  * {
+    box-sizing: 		border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* For small screens (phones in portrait)  */
+@media only screen and (max-width: 500px) {
+    .col-sm-00  {display: 		   none; }
+    .col-sm-01  {width: 		   8.33%; } 
+    .col-sm-02  {width: 		   16.66%; } 
+    .col-sm-03  {width: 		   25.00%; }
+    .col-sm-04  {width: 		   33.33%; } 
+    .col-sm-06  {width: 		   50.00%; }
+    .col-sm-08  {width: 		   66.66%; }   
+    .col-sm-12 	{width: 		   100%; }
+    body 		{background-color: grey;}
+    [class*="col-sm-"] {
+        border: 		none;
+    }
+    .menu p { display: inline; }
+}
+
+/* For medium screens (e.g. landscape phones and portrait tablets) */
+@media only screen and (min-width: 501px) {
+    .col-md-00  {display: 		   none; } /* note */
+    .col-md-01  {width: 		  8.33%; }
+    .col-md-02  {width: 		 16.66%; }
+    .col-md-03  {width: 		 25.00%; }
+    .col-md-04  {width: 		 33.33%; }
+    .col-md-05  {width: 		 41.66%; }
+    .col-md-06  {width: 		 50.00%; }
+    .col-md-07  {width: 		 58.33%; }
+    .col-md-08  {width: 		 66.66%; }
+    .col-md-09  {width: 		 75.00%; }
+    .col-md-10  {width: 		 83.33%; }
+    .col-md-11  {width: 		 91.66%; }
+    .col-md-12  {width: 		100.00%; }
+    body 		{background-color: grey;}
+    [class*="col-md-"] {
+        border: 		none;
+    }
+}
+
+/* For large screens or landscape tablets*/		
+@media only screen and (min-width: 1024px) {
+    .col-sm-00  {display: 		initial; }
+    .col-md-00  {display: 		initial; }
+    .col-lg-01  {width: 		  8.33%; }
+    .col-lg-02  {width: 		 16.66%; }
+    .col-lg-03  {width: 		 25.00%; }
+    .col-lg-04  {width: 		 33.33%; }
+    .col-lg-05  {width: 		 41.66%; }
+    .col-lg-06  {width: 		 50.00%; }
+    .col-lg-07  {width: 		 58.33%; }
+    .col-lg-08  {width: 		 66.66%; }
+    .col-lg-09  {width: 		 75.00%; }
+    .col-lg-10  {width: 		 83.33%; }
+    .col-lg-11  {width: 		 91.66%; }
+    .col-lg-12  {width: 		100.00%; }
+
+    body 		{background-color: grey;}
+    [class*="col-lg-"] {
+        border: 		none;
+    }
+}
+
+[class*="col-"] {
+    float:              left;
+    border-radius:      10px;
+    padding:            2%;
+}
+
+.row::after {
+    content:            "";
+    clear:              both;
+    display:            block;
+}
+
+.center-button 
+{
+    align-content: center;
+}
+
+.fill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+}
