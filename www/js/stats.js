@@ -19,7 +19,7 @@ let getWeightData = async function() {
             t = new Date(data[i]['Date'])
             data[i]['Date'] = t
         }
-        console.log(data)
+        // console.log(data)
         
         let weightStatsDiv = document.getElementById('weightStats')
 
@@ -63,9 +63,7 @@ let getPets = async () => {
     pets = JSON.parse(pets)
     // console.log(pets)
 
-    
 
-    
     for (let i=0;i<pets.length;i++) {
         petList.push(pets[i])
     }
@@ -96,7 +94,7 @@ let getPets = async () => {
     // Insert pets here
     
 
-    console.log(petList)
+    // console.log(petList)
     for (let i=0; i<petList.length;i++) {
         let option = document.createElement('option')
         option.value = petList[i]['ID']
@@ -282,6 +280,19 @@ let request = async () => {
 
 }
 
+async function loginCheck() {
+    let test = await fetch('/loginCheck')
+    let result = await test.json()
+    
+    let resultParse = JSON.parse(JSON.stringify(result))
+    
+    if (resultParse.valid == 0) {
+        window.alert('Session Expired. Logging out.')
+        window.location = '/' 
+    }
+    else {
+    }
+}
 
 
 function bodyFunction() {

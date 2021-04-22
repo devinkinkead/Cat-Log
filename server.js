@@ -1,13 +1,12 @@
 // var vm = require("vm")
 // var http = require('http');
 // var fs = require('fs');
-// var cookie = require('./www/js/cookie.js')
 var sql = require('./nodeSql.js')
 var path = require('path');
 var express = require('express')
 var app = express();
 var fileUpload = require('express-fileupload');
-
+const accountManager = require('./acctManagement.js')
 
 // DB Creds Access
 var Dboptions = require('./options.js');
@@ -22,14 +21,17 @@ var loginData = {
 }
 
 
+
+
 app.use(fileUpload());
 
 var options = {
-    index: 'index.html'
+    index: 'login.html'
 }
 var publicDirectory = path.join(__dirname, 'www/')
 
 app.use(express.static(publicDirectory, options))
+app.use(express.urlencoded({ extended: false }));
 app.post('/login.html', function(req,res) {
     res.redirect('/')
 })
@@ -94,7 +96,60 @@ app.get('/WeightHistory', async function(req, res) {
     return res.json(JSON.stringify(data))
 
 });
-
+app.post('/login', async function(request, res) {
+    let yourPassword = request.body.pwd;
+    let userName = request.body.username
+    // PW in DB
+    let authenticate = accountManager.authenticate(userName, yourPassword, sql, loginData)
+    
+    if (await authenticate == 0) {
+        var cookieOptions =  {
+            maxAge:1000*60*15, // expire in 15 minutes
+            httpOnly:true
+        }
+        let userID = await sql.dbQuery('Select ID from Owners where name='+ "'" + userName + "'", loginData)
+        userID = JSON.parse(JSON.stringify(userID))
+        userID= userID[0]['ID']
+        res.cookie('user',userID, cookieOptions)
+        res.sendFile(path.join(__dirname, 'www','index.html'))
+    }
+    else if (await authenticate == 1) {
+      res.send('Authentication Failed')
+    }
+    else {
+      res.send('Authentication Failed')
+    }
+    
+    
+    });
+    
+    
+    
+    
+    
+    
+    
+    // app.post('/createAccount', async function(request,res) {
+    //   // console.log(request.body)
+    //   let password = request.body.pwd;
+    //   let userName = request.body.user;
+      
+    //   // let created = accountManager.createAccount(userName, password, sql, loginData)
+    //     // console.log(userName, password)
+      
+    //     let created = await accountManager.createAccount(userName, password, sql, loginData)
+    //     // console.log(created)
+    //     if (created == 1) {
+    //       res.send('Account Already Exists')
+    //     }
+    //     else if (created == 0) {
+    //       res.send('Account Created')
+    //     }
+    //     else {
+    //       res.send('Account Creation Failed')
+    //     }
+    
+    // });
 
 
 app.get('/Stats', async function(req, res) {
@@ -117,7 +172,8 @@ app.get('/Stats', async function(req, res) {
     data.then( (value) => {
         // value['Pet_Name'] = petData['Pet_Name']
         // console.log('yo ' + JSON.stringify(value))
-        return res.json(JSON.stringify(value))   
+        return res.json(JSON.stringify(value))
+           
     }
     )
     
@@ -125,10 +181,33 @@ app.get('/Stats', async function(req, res) {
 })
 
 
+app.get('/loginCheck', function(req,res) {
+    let user= get_cookies(req)['user']
+    let msg = {
+        user:undefined
+    }
+
+
+    if (user == undefined) {
+        return res.json({valid: 0});
+    }
+    else {
+        return res.json({valid: 1});
+        
+    }
+});
+
 app.get('/petNames', function(req, res) {
     
     
-    let user = "1"
+    let user = get_cookies(req)['user']
+    if (user == undefined) {
+        let msg = {
+            user: undefined
+        }
+        return res.json(JSON.stringify(msg))
+    }
+    // console.log(user)
     let query = "SELECT Pet, ID from Cat.Pets WHERE Owner = '" + user + "';"
     let data = sql.dbQuery(query, loginData)
     // console.log('test: '+ data)
@@ -147,55 +226,17 @@ app.get('/petNames', function(req, res) {
 app.post('/petUpload', async function(req, res) {
     let pet = req.body.petSelect
     // console.log(pet)
-    res.cookie('Pet_ID', pet)
+    var cookieOptions =  {
+        maxAge:1000*60*15, // expire in 15 minutes
+        httpOnly:false
+    }
+    res.cookie('Pet_ID', pet, cookieOptions)
     
     res.redirect('/stats.html')
 
 });
 
 
-
-//     // var cookie = req.headers.cookie
-//     var cookie = get_cookies(req)['EID']
-//     // var cookie = cookie[0].split('=')
-//     // console.log(cookie)
-
-
-//     let sampleFile;
-//     let uploadPath;
-//     // If there is no files uploaded
-//     if (!req.files || Object.keys(req.files).length === 0) {
-//         res.redirect('/index.html')
-
-//     }
-  
-//     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-//     sampleFile = req.files.sampleFile;
-//     var fileExt = sampleFile.name.split('.').pop()
-//     if (fileExt == 'jpg' || fileExt == 'png' || fileExt == 'jpeg') {
-//         uploadPath = __dirname + '/www/Employee/' + cookie+ "."+ fileExt;
-//         // Use the mv() method to place the file somewhere on your server
-//         sampleFile.mv(uploadPath, function(err) {
-//         if (err)
-//             console.log('upload failed')
-//         });
-//         queryPath = './Employee/' + cookie+ "."+ fileExt
-//         sql.dbQuery('Update teamrocket.Binder SET Photo=' + "'" + queryPath + "'" + "WHERE EID=" + "'" + cookie + "'")
-//         sql.dbQuery('Select * from Binder WHERE EID = '+ "'" + cookie + "'") 
-//         setTimeout(redirectToIndex, 2)
-// }
-// function redirectToIndex() {
-//     res.redirect('/index.html')
-
-// }
-    
-
-
-//   });
-
-//   app.post('/index.html', function(req,res) {
-//       res.redirect('/index.html')
-//   })
 
   app.listen(3000, function(err){ 
     if (err) console.log(err); 
