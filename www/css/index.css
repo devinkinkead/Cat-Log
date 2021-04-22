@@ -92,9 +92,9 @@
     padding: 10px 30px;
 }
 
-#nameSubmit, #petSelect {
-    padding: 10px 10px;
-    margin: 10px
+#nameSubmit, #petSelect, #statsRange {
+    padding: 5px 5px;
+    margin: 5px
 }
 
 nav button {
@@ -129,3 +129,4 @@ ul {
     background-color: black;
     color: white;
 }
+
