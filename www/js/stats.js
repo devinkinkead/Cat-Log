@@ -22,8 +22,13 @@ let getWeightData = async function() {
         console.log(data)
         
         let weightStatsDiv = document.getElementById('weightStats')
+
+        while (weightStatsDiv.lastElementChild) {
+            weightStatsDiv.removeChild(weightStatsDiv.lastElementChild)
+        }
+
         let title = document.createElement('h4')
-        title.innerHTML = "Weight History:"
+        title.innerHTML = "Weight History (All Time):"
         weightStatsDiv.appendChild(title)
 
         let weightArea = document.createElement('textarea')
@@ -68,9 +73,13 @@ let getPets = async () => {
     
 
     // console.log(petList)
-
+    
     petSelector = document.getElementById('petSelect')
     
+    while (petSelector.lastElementChild) {
+        petSelector.removeChild(petSelector.lastElementChild)
+    }
+
     let option = document.createElement('option')
     option.value = ""
     option.innerHTML = ""
@@ -132,11 +141,14 @@ let request = async () => {
         }
     
     )
-
-   var  bam = []
+   var bam = []
     bam = await test
     bam = JSON.parse(bam)
+    let statsRange = document.getElementById('statsRange').value
+    
     // console.log(bam)
+    
+
     
     
     var pet = getCookie('Pet_ID')
@@ -156,6 +168,7 @@ let request = async () => {
         bam[i]['Date'] = t
     } 
 
+    
 
     // console.log(bam)
     var fedCount = 0, dailyAmount = 0, weekVomit=0, lastFeeding=null, lastVomit=null
@@ -178,7 +191,7 @@ let request = async () => {
         if (bam[i]['Vomit'] == 1) {
             lastVomit= new Date(bam[i]['Date'])
         }
-        let weekBefore = currentDate.getTime() - (7 * 24 * 60 * 60 * 1000)
+        let weekBefore = currentDate.getTime() - (statsRange * 24 * 60 * 60 * 1000)
         
         if (date.getTime() >= weekBefore) {
             if (bam[i]['Vomit'] == 1) {
@@ -198,8 +211,14 @@ let request = async () => {
     //     opt.innerHTML = bam[i]['Pet']
     //     select.appendChild(opt)
     // }
-    
     var feedingDiv = document.getElementById('todayFeeding')
+
+    // clear out any previous feedingDiv children
+    while (feedingDiv.lastElementChild) {
+        feedingDiv.removeChild(feedingDiv.lastElementChild)
+    }
+
+
     let statTitle = document.createElement('h4')
     statTitle.innerHTML = "Today's Stats:"
     feedingDiv.appendChild(statTitle)
@@ -219,16 +238,15 @@ let request = async () => {
         lastVomitDate = lastVomit.toLocaleDateString() + " " + lastVomit.toLocaleTimeString()
     }
 
-    feedingMsg.innerHTML = "<li>" + petName + " has been fed " + fedCount + " times today. </li>" + "<li>" + petName + " has been fed " + dailyAmount + " Cups of food today." +  "</li><li>" + petName + " has puked " + weekVomit + " times this week" + 
+    feedingMsg.innerHTML = "<li>" + petName + " has been fed " + fedCount + " times today. </li>" + "<li>" + petName + " has been fed " + dailyAmount + " Cups of food today." +  "</li><li>" + petName + " has puked " + weekVomit + " times in the past " + statsRange + ' days' + 
     "</li> <li>" + "Last Feeding recorded on: " + lastFeedingDate + "</li>" + 
     "<li>" + "Last Vomit recorded on: " + lastVomitDate + "</li>"   
     
     
     feedingDiv.appendChild(feedingMsg)
 
-
     var notesHeading = document.createElement('h4')
-    notesHeading.innerHTML = "This Week's Notes: "
+    notesHeading.innerHTML = "Notes from previous " + statsRange + " days:"
     feedingDiv.append(notesHeading)
     
     var textA = document.createElement('textarea')
@@ -239,7 +257,7 @@ let request = async () => {
     for (let i=0; i<bam.length;i++) {
         let date = new Date(bam[i]['Date'])
         let currentDate = new Date()
-        let weekBefore = currentDate.getTime() - (7 * 24 * 60 * 60 * 1000)
+        let weekBefore = currentDate.getTime() - (statsRange * 24 * 60 * 60 * 1000)
 
         let note = bam[i]['Notes']
         if (i == 0) {
@@ -265,7 +283,13 @@ let request = async () => {
 }
 
 
+
+function bodyFunction() {
+loginCheck()
 request()
 getPets()
 getWeightData()
+
+}
+
 

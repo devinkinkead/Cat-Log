@@ -9,7 +9,7 @@
 
     </head>
     
-    <body>
+    <body onload="bodyFunction()">
         <nav class="center" >
             <button> <a href='./index.html'>Feeding</a></button>
             <button> <a href='./weight.html'>Weight</a> </button>
@@ -27,11 +27,18 @@
             encType="multipart/form-data">
 
         <select id='petSelect' name='petSelect'>
-    
         </select>
+        
         <input id="nameSubmit" type="submit"></input>
         </form>
-
+        <label>Select Date Limt for Stats</label>
+        <select class="center" id="statsRange" onchange="bodyFunction()">
+            <option value="7" selected>7</option>
+            <option value="14">14</option>
+            <option value="30">30</option>
+            <option value="365">365</option>
+        </select>
+        
         
 
 
