@@ -151,8 +151,15 @@ app.post('/login', async function(request, res) {
     
     });
     
-    
-    
+
+app.get('/signOut', async function(req,res) {
+res.clearCookie('token')
+res.clearCookie('Pet_ID')
+res.clearCookie('user')
+
+res.redirect('/')
+});
+
     
     
     
