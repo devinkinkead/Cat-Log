@@ -101,11 +101,44 @@ exports.authenticate = async function compare(user, password, sql, creds)
     {
         return 1
     }
-    
+           
 
+}
+
+exports.sessionCreator = async function createSession(user, sql, creds) {
+    const crypto = require('crypto').randomBytes(48).toString('Hex')
+
+
+    let query = "INSERT INTO Sessions (sessionToken,userID,sessionCre) VALUES (" + "'" + crypto + "'," + "'" + user + "', NOW()" + ");"
+    sqlRes = sql.dbQuery(query,creds)
 
         
-    
+    // Hanlde Event of DB disconnecting/failure
+    try {
+        let test = await sqlRes
+        let test2 = test['affectedRows']
+    }
+    catch (TypeError) {
+        return 2
+    }
 
-}      
+    if (await sqlRes == {}) {
+        return 2
+    }
+    else {
+        let result = JSON.parse(JSON.stringify(await sqlRes))
+
+        if (result['affectedRows'] == 1) {
+            // Successful Creation
+            return crypto
+
+        }
+        else {
+            // Failed
+            return 2
+        }
+    }
+        
+
+}
        

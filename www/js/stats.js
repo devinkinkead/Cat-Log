@@ -1,51 +1,54 @@
 
 let getWeightData = async function() {
-    const weightData = await fetch('/WeightHistory')
-    let data = await weightData.json()
-    data = JSON.parse(data)
     var pet = getCookie('Pet_ID')
-    // console.log(pet)
-    if (pet == "") {
-        // console.log('No Pet selected')
-    }
-    
-    else if (data.length == undefined || (data.length == 0) ) {
-        window.alert('Weight Data could not be found for Pet. Please Try again later.')
-        // clearCookie('Pet_ID')
-    }
-
-    else {
-        for (let i=0; i<data.length;i++) {
-            t = new Date(data[i]['Date'])
-            data[i]['Date'] = t
-        }
-        // console.log(data)
+    if (pet != undefined && pet != "") {
+        const weightData = await fetch('/WeightHistory')
+        let data = await weightData.json()
+        data = JSON.parse(data)
+        // console.log(pet)
         
-        let weightStatsDiv = document.getElementById('weightStats')
-
-        while (weightStatsDiv.lastElementChild) {
-            weightStatsDiv.removeChild(weightStatsDiv.lastElementChild)
+        
+        if (data.hasOwnProperty('invalid')) {
+            window.alert('Session Expired. Signing Out')
+            signOut()
         }
-
-        let title = document.createElement('h4')
-        title.innerHTML = "Weight History (All Time):"
-        weightStatsDiv.appendChild(title)
-
-        let weightArea = document.createElement('textarea')
-        weightArea.id = "weightArea"
-        weightArea.disabled = true
-        for (let i=0;i<data.length;i++) {
-            let date = data[i]['Date'].toLocaleDateString() + " " + data[i]['Date'].toLocaleTimeString()
-            weightArea.value += "\u2022 " + date + ": " + data[i]['Weight'] + " lb" + "\r\n" + "\r\n"
+        else if (data.length == undefined || (data.length == 0) ) {
+            window.alert('Weight Data could not be found for Pet. Please Try again later.')
+            // clearCookie('Pet_ID')
             
         }
+        
+        else {
+            for (let i=0; i<data.length;i++) {
+                t = new Date(data[i]['Date'])
+                data[i]['Date'] = t
+            }
+            // console.log(data)
+            
+            let weightStatsDiv = document.getElementById('weightStats')
 
-        weightStatsDiv.appendChild(weightArea)
+            while (weightStatsDiv.lastElementChild) {
+                weightStatsDiv.removeChild(weightStatsDiv.lastElementChild)
+            }
+
+            let title = document.createElement('h4')
+            title.innerHTML = "Weight History (All Time):"
+            weightStatsDiv.appendChild(title)
+
+            let weightArea = document.createElement('textarea')
+            weightArea.id = "weightArea"
+            weightArea.disabled = true
+            for (let i=0;i<data.length;i++) {
+                let date = data[i]['Date'].toLocaleDateString() + " " + data[i]['Date'].toLocaleTimeString()
+                weightArea.value += "\u2022 " + date + ": " + data[i]['Weight'] + " lb" + "\r\n" + "\r\n"
+                
+            }
+
+            weightStatsDiv.appendChild(weightArea)
+        }
+
     }
-
-
-
-
+    
 
 }
 
@@ -61,17 +64,18 @@ let getPets = async () => {
     var pets = {}
     pets = await petRequest
     pets = JSON.parse(pets)
-    // console.log(pets)
+    
 
+    if (pets.hasOwnProperty('invalid')) {
+        window.alert('Session Expired. Signing Out')
+        signOut()
+    }
 
     for (let i=0;i<pets.length;i++) {
         petList.push(pets[i])
     }
     
-    
-
-    // console.log(petList)
-    
+        
     petSelector = document.getElementById('petSelect')
     
     while (petSelector.lastElementChild) {
@@ -85,16 +89,10 @@ let getPets = async () => {
     petSelector.appendChild(option)
     
  
-
-    
- 
-    // petSelector.selected = document.getElementById(getCookie('PName'))
-
     
     // Insert pets here
     
 
-    // console.log(petList)
     for (let i=0; i<petList.length;i++) {
         let option = document.createElement('option')
         option.value = petList[i]['ID']
@@ -106,13 +104,10 @@ let getPets = async () => {
        // Trying to select option that = the cookie (selected pet)
        try {
         
-        // getCookie('PName')
         children = petSelector.children
-        // console.log(test[0])
         
         for (let i=0; i<children.length;i++) {
             child = children[i]
-            // console.log(children[i])
             if (getCookie('Pet_ID') == child.value) {
                 child.selected = true
             }
@@ -130,8 +125,11 @@ let getPets = async () => {
 
 
 
-let request = async () => {
-    const test = fetch('/stats')
+let getPetStats = async () => {
+
+    var pet = getCookie('Pet_ID')
+    if (pet != "") {
+        const test = fetch('/petStats')
     .then (
         function(value) {
             data = value.json()
@@ -144,20 +142,15 @@ let request = async () => {
     bam = JSON.parse(bam)
     let statsRange = document.getElementById('statsRange').value
     
-    // console.log(bam)
-    
 
     
-    
-    var pet = getCookie('Pet_ID')
-    // console.log(pet)
-    if (pet == "") {
-        // console.log('No Pet selected')
+    if (data.hasOwnProperty('invalid')) {
+        window.alert('Session Expired. Signing Out')
+        signOut()
     }
-    
+
     else if (bam.length == undefined || (bam.length == 0) ) {
         window.alert('Feeding Data could not be found for Pet. Please Try again later.')
-        // clearCookie('Pet_ID')
     }
     else {
         var petName = bam[0]['Pet_Name']
@@ -165,10 +158,7 @@ let request = async () => {
         t = new Date(bam[i]['Date'])
         bam[i]['Date'] = t
     } 
-
     
-
-    // console.log(bam)
     var fedCount = 0, dailyAmount = 0, weekVomit=0, lastFeeding=null, lastVomit=null
     for (let i=0; i<bam.length; i++) {
         let date = new Date(bam[i]['Date'])
@@ -197,18 +187,7 @@ let request = async () => {
             }
         }
     }
-    // console.log(fedCount)
 
-
-
-    // console.log(bam)
-    // for (let i=0; i<bam.length;i++) {
-    //     var select = document.getElementById('petName')
-    //     var opt = document.createElement('option')
-    //     opt.value = bam[i]['Pet']
-    //     opt.innerHTML = bam[i]['Pet']
-    //     select.appendChild(opt)
-    // }
     var feedingDiv = document.getElementById('todayFeeding')
 
     // clear out any previous feedingDiv children
@@ -267,12 +246,11 @@ let request = async () => {
         }
         if (i == bam.length-1) {
         }
-    }
-
-    // console.log(notesMsg.innerHTML)
-    
+    }    
     feedingDiv.appendChild(textA)
     }
+    }
+    
     
    
     
@@ -280,27 +258,19 @@ let request = async () => {
 
 }
 
-async function loginCheck() {
-    let test = await fetch('/loginCheck')
-    let result = await test.json()
-    
-    let resultParse = JSON.parse(JSON.stringify(result))
-    
-    if (resultParse.valid == 0) {
-        window.alert('Session Expired. Logging out.')
-        window.location = '/' 
-    }
-    else {
-    }
-}
 
 
-function bodyFunction() {
-loginCheck()
-request()
-getPets()
-getWeightData()
+async function bodyFunction() {
+await getPets()
+await getPetStats()
+await getWeightData()
 
 }
+
+
+function signOut() {
+    window.location = "/"
+}
+
 
 

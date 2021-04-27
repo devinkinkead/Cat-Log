@@ -18,6 +18,12 @@
         width: 90vw;
         height: 20vh;
     }
+    nav button {
+        padding: 2vw;
+        background-color: white;
+        margin-bottom: 5vh;
+        margin:0
+    }
 
 }
 
@@ -41,6 +47,11 @@
         width: 60vw;
         height: 20vh;
     }
+    nav button {
+        padding: 2vw;
+        background-color: white;
+        margin-bottom: 5vh;
+    }
 
 }
 
@@ -62,6 +73,11 @@
     #notes {
         width: 60vw;
         height: 20vh;
+    }
+    nav button {
+        padding: 1vw;
+        background-color: white;
+        margin-bottom: 5vh;
     }
 }
 
@@ -96,15 +112,19 @@
     padding: 5px 5px;
     margin: 5px
 }
-
 nav button {
-    padding: 10px 30px;
-    background-color: white;
-    margin-bottom: 5vh;
+    border-radius: 1em;
+    border-color: black;
+    margin:0
+
+
+
 }
+
 
 nav button a {
     color: black;
+    font-size: small;
 }
 
 ul {
@@ -128,5 +148,8 @@ ul {
 #notesArea:disabled, #weightArea:disabled {
     background-color: black;
     color: white;
+}
+h1 {
+    font-size: xx-large;
 }
 
