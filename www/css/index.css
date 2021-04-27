@@ -15,7 +15,7 @@
     .col-sm-11  {width: 		 91.66%; }
     .col-sm-12  {width: 		100.00%; }
     #notes {
-        width: 90vw;
+        width: 70vw;
         height: 20vh;
     }
     nav button {
@@ -48,7 +48,7 @@
         height: 20vh;
     }
     nav button {
-        padding: 2vw;
+        padding: 1vw;
         background-color: white;
         margin-bottom: 5vh;
     }
@@ -75,7 +75,7 @@
         height: 20vh;
     }
     nav button {
-        padding: 1vw;
+        padding: 0.5vw;
         background-color: white;
         margin-bottom: 5vh;
     }
@@ -149,7 +149,5 @@ ul {
     background-color: black;
     color: white;
 }
-h1 {
-    font-size: xx-large;
-}
+
 
