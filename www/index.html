@@ -11,12 +11,16 @@
 
 
     <body onload="bodyFunction()">
-        <nav class="center">
-            <button> <a href='./index.html'>Feeding</a></button>
-            <button> <a href='./weight.html'>Weight</a> </button>
-            <button> <a href='./stats.html'>See Stats!</a> </button>
-        </nav>
-        <h1 class="center">Feeding Form</h1>
+        <div class="row">
+            <nav class="center col-sm-12 col-md-12 col-lg-12">
+                <button class=""> <a href='./feedingForm'>Feeding</a></button>
+                <button class=""> <a href='./weightForm'>Weight</a> </button>
+                <button class=""> <a href='./stats'>See Stats!</a> </button>
+                <button class=""> <a href='./signOut'> Sign Out </a></button>
+            </nav>
+        </div>
+        
+        <h2 class="center">Feeding Form</h1>
         <div class="center row" id="clock"></div>
       <div id="formId" class="center row">
         <form ref='uploadForm' 

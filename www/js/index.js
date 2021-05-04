@@ -9,36 +9,30 @@ let request = async () => {
         }
     
     )
-
+    
     var bam = []
     var validCookie = false
     bam = await test
     bam = JSON.parse(bam)
     
-    try {
-        let t = bam[0]['Pet']
-        validCookie = true
+    if (bam.hasOwnProperty('invalid')) {
+        window.alert('Session Expired. Signing Out')
+        signOut()
     }
-    catch {
-        // window.alert('Session Expired. Logging Out.')
-        // // window.location = "/"
-        
+
+    else if (bam.length == undefined) {
+        window.alert('Issue connecting to Database. Try again later.')
     }
-    if (validCookie) {
-        if (bam.length == undefined) {
-            window.alert('Issue connecting to Database. Try again later.')
-        }
-        
-        else {
-            for (let i=0; i<bam.length;i++) {
-                var select = document.getElementById('petName')
-                var opt = document.createElement('option')
-                opt.value = bam[i]['ID']
-                opt.innerHTML = bam[i]['Pet']
-                select.appendChild(opt)
-            }
+    else {
+        for (let i=0; i<bam.length;i++) {
+            var select = document.getElementById('petName')
+            var opt = document.createElement('option')
+            opt.value = bam[i]['ID']
+            opt.innerHTML = bam[i]['Pet']
+            select.appendChild(opt)
         }
     }
+}
     
     
     
@@ -46,13 +40,13 @@ let request = async () => {
    
 
 
-}
+
 
 
 
 
 function bodyFunction() {
-    loginCheck()
+    // loginCheck()
     display_ct()
     request()
 }
@@ -68,16 +62,21 @@ function display_clock(){
     display_clock();
      }
 
-async function loginCheck() {
-let test = await fetch('/loginCheck')
-let result = await test.json()
+// async function loginCheck() {
+// let test = await fetch('/loginCheck')
+// let result = await test.json()
 
-let resultParse = JSON.parse(JSON.stringify(result))
+// let resultParse = JSON.parse(JSON.stringify(result))
 
-if (resultParse.valid == 0) {
-    window.alert('Session Expired. Logging out.')
-    window.location = '/' 
-}
-else {
-}
+// if (resultParse.valid == 0) {
+//     window.alert('Session Expired. Logging out.')
+//     window.location = '/' 
+// }
+// else {
+// }
+// }
+
+function signOut() {
+    window.location = "/"
+
 }

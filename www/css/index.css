@@ -15,8 +15,14 @@
     .col-sm-11  {width: 		 91.66%; }
     .col-sm-12  {width: 		100.00%; }
     #notes {
-        width: 90vw;
+        width: 70vw;
         height: 20vh;
+    }
+    nav button {
+        padding: 3vw;
+        background-color: white;
+        margin-bottom: 5vh;
+        margin:0
     }
 
 }
@@ -41,6 +47,11 @@
         width: 60vw;
         height: 20vh;
     }
+    nav button {
+        padding: 2vw;
+        background-color: white;
+        margin-bottom: 5vh;
+    }
 
 }
 
@@ -62,6 +73,11 @@
     #notes {
         width: 60vw;
         height: 20vh;
+    }
+    nav button {
+        padding: 1vw;
+        background-color: white;
+        margin-bottom: 5vh;
     }
 }
 
@@ -86,7 +102,12 @@
       background-color: black;
       color: white;
       font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      
   }
+
+
 
 #submit {
     padding: 10px 30px;
@@ -96,15 +117,19 @@
     padding: 5px 5px;
     margin: 5px
 }
-
 nav button {
-    padding: 10px 30px;
-    background-color: white;
-    margin-bottom: 5vh;
+    border-radius: 1em;
+    border-color: black;
+    margin:0
+
+
+
 }
+
 
 nav button a {
     color: black;
+    font-size: small;
 }
 
 ul {
@@ -117,6 +142,7 @@ ul {
 
 .row {
     margin-bottom: 1vh;
+    width: 100%;
 }
 
 #notesArea, #weightArea {
@@ -129,4 +155,8 @@ ul {
     background-color: black;
     color: white;
 }
+label {
+    font-size: small;
+}
+
 
