@@ -1,4 +1,3 @@
-
 let getWeightData = async function() {
     const weightData = await fetch('/WeightHistory')
     let data = await weightData.json()
@@ -166,6 +165,7 @@ let request = async () => {
         bam[i]['Date'] = t
     } 
 
+    console.log(bam)
     
 
     // console.log(bam)
@@ -173,8 +173,9 @@ let request = async () => {
     for (let i=0; i<bam.length; i++) {
         let date = new Date(bam[i]['Date'])
         let currentDate = new Date()
-        if (date.getDate() == currentDate.getDate()  ) {
+        if (isSameDay(date, currentDate)) {
             if (bam[i]['Amount'] > 0) {
+                console.log(bam[i])
                 fedCount += 1
                 dailyAmount += bam[i]['Amount']
             }
@@ -251,10 +252,9 @@ let request = async () => {
     textA.id = "notesArea"
     textA.disabled = true
     
-    
+    let currentDate = new Date()
     for (let i=0; i<bam.length;i++) {
         let date = new Date(bam[i]['Date'])
-        let currentDate = new Date()
         let weekBefore = currentDate.getTime() - (statsRange * 24 * 60 * 60 * 1000)
 
         let note = bam[i]['Notes']
@@ -301,6 +301,16 @@ request()
 getPets()
 getWeightData()
 
+}
+
+function isSameDay(dataDate, currentDate) {
+    if (dataDate.getDate() == currentDate.getDate() && dataDate.getMonth() == currentDate.getMonth() &&
+    dataDate.getFullYear() == currentDate.getFullYear() ) {
+        return true
+    } 
+    else {
+        return false
+    }
 }
 
 
